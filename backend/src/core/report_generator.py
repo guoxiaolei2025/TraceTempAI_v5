@@ -1563,18 +1563,19 @@ class ReportGenerator:
         # 仅支持Word格式
         pass
 
-    def generate_monthly_report(self, data: Dict, department: str = None) -> Dict:
+    def generate_monthly_report(self, data: Dict, department: str = None, progress_callback=None) -> Dict:
         """
         生成24小时温湿度监控月度回顾表（Word格式）
 
         Args:
             data: 设备报警数据
             department: 学科名称
+            progress_callback: 进度回调，接收 0.0~1.0 浮点进度
 
         Returns:
             Dict: 包含报告内容和元数据的字典
         """
-        content = self._generate_docx(data, report_type='monthly', department=department)
+        content = self._generate_docx(data, report_type='monthly', department=department, progress_callback=progress_callback)
 
         return {
             'content': content,
@@ -1583,13 +1584,14 @@ class ReportGenerator:
             'filename': f"24小时温湿度监控月度回顾表_{datetime.now().strftime('%Y%m%d_%H%M%S')}.docx"
         }
 
-    def generate_correction_report(self, data: Dict, department: str = None) -> List[Dict]:
+    def generate_correction_report(self, data: Dict, department: str = None, progress_callback=None) -> List[Dict]:
         """
         生成环境失控纠正报告（按设备类型自动拆分为多份，Word格式）
 
         Args:
             data: 设备报警数据
             department: 学科名称
+            progress_callback: 进度回调，接收 0.0~1.0 浮点进度（每份报告生成前、AI 调用前后、整份完成后均触发）
 
         Returns:
             List[Dict]: 每份报告包含 content, format, type, filename
@@ -1597,14 +1599,27 @@ class ReportGenerator:
         splits = self._split_correction_data(data)
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         results = []
-        for label, sub_data in splits:
-            content = self._generate_docx(sub_data, report_type='correction', department=department)
+        total = len(splits)
+        for idx, (label, sub_data) in enumerate(splits):
+            # 将"当前份内部进度"映射为"整体进度"
+            def sub_progress(f: float, _idx=idx, _total=total):
+                if progress_callback and _total > 0:
+                    progress_callback((_idx + max(0.0, min(1.0, f))) / _total)
+
+            if progress_callback:
+                progress_callback(idx / total if total > 0 else 1.0)
+            content = self._generate_docx(
+                sub_data, report_type='correction', department=department,
+                progress_callback=sub_progress
+            )
             results.append({
                 'content': content,
                 'format': 'docx',
                 'type': 'correction',
                 'filename': f"环境失控纠正报告_{label}_{timestamp}.docx"
             })
+        if progress_callback:
+            progress_callback(1.0)
         return results
 
     @staticmethod
@@ -1666,22 +1681,25 @@ class ReportGenerator:
     # DOCX 生成
     # ========================================================================
 
-    def _generate_docx(self, data: Any, report_type: str, department: str = None) -> bytes:
+    def _generate_docx(self, data: Any, report_type: str, department: str = None, progress_callback=None) -> bytes:
         """生成Word格式报告"""
         doc = Document()
 
         if report_type == 'monthly':
-            self._generate_monthly_docx(doc, data, department)
+            self._generate_monthly_docx(doc, data, department, progress_callback=progress_callback)
         elif report_type == 'correction':
-            self._generate_correction_docx(doc, data, department)
+            self._generate_correction_docx(doc, data, department, progress_callback=progress_callback)
 
         buffer = BytesIO()
         doc.save(buffer)
         return buffer.getvalue()
 
-    def _generate_monthly_docx(self, doc: Document, data: Dict, department: str = None):
+    def _generate_monthly_docx(self, doc: Document, data: Dict, department: str = None, progress_callback=None):
         """生成月度回顾表Word内容（匹配参考文档格式）"""
         styler = _DocxStyler
+        # 月度回顾表生成较快，无 AI 调用，直接推进至完成
+        if progress_callback:
+            progress_callback(0.5)
 
         # --- 页面设置 ---
         styler.setup_page(doc, MONTHLY_MARGINS)
@@ -1813,7 +1831,7 @@ class ReportGenerator:
             (MONTHLY_DATE_SIGN, FONT_SONG, 9, True),
         ])
 
-    def _generate_correction_docx(self, doc: Document, data: Dict, department: str = None):
+    def _generate_correction_docx(self, doc: Document, data: Dict, department: str = None, progress_callback=None):
         """生成失控纠正报告Word内容（匹配参考文档格式）"""
         styler = _DocxStyler
 
@@ -1841,8 +1859,12 @@ class ReportGenerator:
         # --- 处理数据 ---
         cause_groups = _AlarmDataProcessor.group_alarms_by_cause(data)
 
-        # AI 生成内容
+        # AI 生成内容（此阶段为最大耗时点，前后上报进度）
+        if progress_callback:
+            progress_callback(0.3)
         ai_content = _AIContentGenerator.generate_correction_content(cause_groups)
+        if progress_callback:
+            progress_callback(0.7)
 
         # --- 主体表格（3行x1列）---
         table = styler.create_single_column_table(doc, 3)

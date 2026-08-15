@@ -3,7 +3,16 @@
     <div class="welcome-content">
       <div class="brand-section">
         <div class="logo-icon">
-          <img src="/logo_369.png" alt="369云管平台" class="logo-img" />
+          <svg class="logo-img" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="8" fill="url(#welcomeLogoGrad)"/>
+            <path d="M10 22V14L16 10L22 14V22H18V17H14V22H10Z" fill="white" fill-opacity="0.95"/>
+            <defs>
+              <linearGradient id="welcomeLogoGrad" x1="0" y1="0" x2="32" y2="32">
+                <stop stop-color="#1a73e8"/>
+                <stop offset="1" stop-color="#4fc3f7"/>
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
         <h1 class="brand-title">温湿度智能监控分析系统</h1>
         <p class="brand-desc">AI驱动的温湿度趋势分析与报告生成平台</p>
@@ -95,7 +104,7 @@ const features = [
   {
     icon: Document,
     title: '报告自动生成',
-    desc: '自动生成温湿度监控月度回顾表和环境失控纠正报告，解放数据统计和报告撰写的重复性劳动',
+    desc: '自动生成温湿度监控月度回顾表和环境失控纠正报告初稿，大幅减少重复性劳动',
     color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
   },
   {
@@ -179,13 +188,9 @@ onMounted(async () => {
   width: 76px;
   height: 76px;
   margin: 0 auto 24px;
-  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 8px;
   animation: float 3s ease-in-out infinite;
 }
 
@@ -193,6 +198,7 @@ onMounted(async () => {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: block;
 }
 
 @keyframes float {

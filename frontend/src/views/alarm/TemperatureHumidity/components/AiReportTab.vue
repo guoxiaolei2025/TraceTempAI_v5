@@ -254,9 +254,15 @@ const feedbackSubmitted = ref(false)
 
 async function submitFeedback() {
   try {
+    // 构建携带访问令牌的请求头（与 axios 拦截器保持一致）
+    const headers = { 'Content-Type': 'application/json' }
+    const token = localStorage.getItem('token')
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
     await fetch('/api/v1/alarms/ai-feedback', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify({
         rating: feedbackRating.value,
         comment: feedbackComment.value,

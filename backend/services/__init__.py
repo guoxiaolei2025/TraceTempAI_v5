@@ -1,5 +1,6 @@
 import logging
 import re
+import time
 from datetime import datetime, timedelta
 from typing import Dict, Optional
 
@@ -1481,7 +1482,15 @@ class ReportService:
         
         def report_task():
             import os
+            # 等待 task_id 就绪：create_task 返回后主线程才会写入 task_holder，
+            # 若不等待，后台线程可能读到 None 导致进度永远无法更新
             task_id_local = task_holder.get("task_id")
+            if not task_id_local:
+                for _ in range(200):  # 最多等待 2 秒
+                    time.sleep(0.01)
+                    task_id_local = task_holder.get("task_id")
+                    if task_id_local:
+                        break
             start_dt = datetime.strptime(start_date, "%Y-%m-%d")
             end_dt = datetime.strptime(end_date, "%Y-%m-%d").replace(hour=23, minute=59, second=59)
             
@@ -1498,11 +1507,18 @@ class ReportService:
             if task_id_local:
                 self.task_manager.update_task_progress(task_id_local, 72)
             generator = ReportGenerator()
+
+            # 阶段2 内部进度回调：把 0.0~1.0 映射到 72~89 区间
+            def report_progress(f: float):
+                if task_id_local:
+                    pct = 72 + int(max(0.0, min(1.0, f)) * 17)
+                    self.task_manager.update_task_progress(task_id_local, min(89, pct))
+
             if report_type == "monthly_review":
-                result = generator.generate_monthly_report(alarm_data, dept_name)
+                result = generator.generate_monthly_report(alarm_data, dept_name, progress_callback=report_progress)
                 results = [result]
             else:
-                results = generator.generate_correction_report(alarm_data, dept_name)
+                results = generator.generate_correction_report(alarm_data, dept_name, progress_callback=report_progress)
             if task_id_local:
                 self.task_manager.update_task_progress(task_id_local, 90)
             

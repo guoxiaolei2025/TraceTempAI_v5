@@ -45,6 +45,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
+import { temperatureHumidityAPI } from '@/api/temperature-humidity'
 
 const emit = defineEmits(['query'])
 
@@ -56,13 +57,10 @@ const isLoading = ref(false)
 
 async function loadDepartments() {
   try {
-    const response = await fetch('/api/departments')
-    const data = await response.json()
-    if (data.code === 0 && data.data) {
-      departments.value = data.data
-      if (data.data.length > 0) {
-        selectedDeptId.value = data.data[0].id
-      }
+    const data = await temperatureHumidityAPI.getDepartments()
+    departments.value = data || []
+    if (departments.value.length > 0) {
+      selectedDeptId.value = departments.value[0].id
     }
   } catch (error) {
     console.error('加载学科列表失败:', error)
