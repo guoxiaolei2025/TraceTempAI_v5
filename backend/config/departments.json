@@ -1,0 +1,374 @@
+{
+  "departments": [
+    {
+      "id": "infection",
+      "name": "感染中心常规PCR室",
+      "api_key_env": "DEPARTMENT_INFECTION_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      },
+      "report_templates": {
+        "monthly": "templates/monthly_review_infection.docx",
+        "correction": "templates/correction_report_infection.docx"
+      }
+    },
+    {
+      "id": "flowcytometry",
+      "name": "血液流式中心流式室",
+      "api_key_env": "DEPARTMENT_FLOWCYTOMETRY_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": false,
+        "importance_order": ["temperature", "humidity"]
+      },
+      "report_templates": {
+        "monthly": "templates/monthly_review_flowcytometry.docx",
+        "correction": "templates/correction_report_flowcytometry.docx"
+      }
+    },
+    {
+      "id": "广州金域细胞遗传",
+      "name": "广州金域细胞遗传",
+      "api_key_env": "DEPARTMENT_GZJY_CELL_GENETICS_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域fish",
+      "name": "广州金域FISH",
+      "api_key_env": "DEPARTMENT_GZJY_FISH_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域免疫室",
+      "name": "广州金域免疫室",
+      "api_key_env": "DEPARTMENT_GZJY_IMMUNOLOGY_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域标本室",
+      "name": "广州金域标本室",
+      "api_key_env": "DEPARTMENT_GZJY_SPECIMEN_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域辅助室",
+      "name": "广州金域辅助室",
+      "api_key_env": "DEPARTMENT_GZJY_AUXILIARY_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域生化室",
+      "name": "广州金域生化室",
+      "api_key_env": "DEPARTMENT_GZJY_BIOCHEMISTRY_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域发光室",
+      "name": "广州金域发光室",
+      "api_key_env": "DEPARTMENT_GZJY_LUMINESCENCE_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域放免室",
+      "name": "广州金域放免室",
+      "api_key_env": "DEPARTMENT_GZJY_RIA_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域基因室",
+      "name": "广州金域基因室",
+      "api_key_env": "DEPARTMENT_GZJY_GENE_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域产前筛查实验室",
+      "name": "广州金域产前筛查实验室",
+      "api_key_env": "DEPARTMENT_GZJY_PRENATAL_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域临床质谱检测中心",
+      "name": "广州金域临床质谱检测中心",
+      "api_key_env": "DEPARTMENT_GZJY_MASS_SPECTROMETRY_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域常规血液室",
+      "name": "广州金域常规血液室",
+      "api_key_env": "DEPARTMENT_GZJY_HEMATOLOGY_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域流式室",
+      "name": "广州金域流式室",
+      "api_key_env": "DEPARTMENT_GZJY_FLOW_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域骨髓室",
+      "name": "广州金域骨髓室",
+      "api_key_env": "DEPARTMENT_GZJY_BONE_MARROW_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域组织病理",
+      "name": "广州金域组织病理",
+      "api_key_env": "DEPARTMENT_GZJY_HISTOPATHOLOGY_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域免疫组化",
+      "name": "广州金域免疫组化",
+      "api_key_env": "DEPARTMENT_GZJY_IMMUNOHISTOCHEMISTRY_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域肾脏病理",
+      "name": "广州金域肾脏病理",
+      "api_key_env": "DEPARTMENT_GZJY_KIDNEY_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域病毒诊断与转化中心",
+      "name": "广州金域病毒诊断与转化中心",
+      "api_key_env": "DEPARTMENT_GZJY_VIRUS_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "临床基因组检测中心",
+      "name": "临床基因组检测中心",
+      "api_key_env": "DEPARTMENT_GENOME_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域分子病理array",
+      "name": "广州金域分子病理Array",
+      "api_key_env": "DEPARTMENT_GZJY_MOLECULAR_ARRAY_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域分子病理突变",
+      "name": "广州金域分子病理突变",
+      "api_key_env": "DEPARTMENT_GZJY_MOLECULAR_MUTATION_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域分子病理定量",
+      "name": "广州金域分子病理定量",
+      "api_key_env": "DEPARTMENT_GZJY_MOLECULAR_QUANT_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域分子病理前处理",
+      "name": "广州金域分子病理前处理",
+      "api_key_env": "DEPARTMENT_GZJY_MOLECULAR_PREP_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域学分子病理科研",
+      "name": "广州金域学分子病理科研",
+      "api_key_env": "DEPARTMENT_GZJY_MOLECULAR_RESEARCH_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域学分子病理ngs",
+      "name": "广州金域学分子病理NGS",
+      "api_key_env": "DEPARTMENT_GZJY_MOLECULAR_NGS_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域学分子病理加做",
+      "name": "广州金域学分子病理加做",
+      "api_key_env": "DEPARTMENT_GZJY_MOLECULAR_ADDON_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域宏组学",
+      "name": "广州金域宏组学",
+      "api_key_env": "DEPARTMENT_GZJY_METAGENOMICS_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域神经疾病检测中心",
+      "name": "广州金域神经疾病检测中心",
+      "api_key_env": "DEPARTMENT_GZJY_NEURO_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域微生物宏组基因室",
+      "name": "广州金域微生物宏组基因室",
+      "api_key_env": "DEPARTMENT_GZJY_MICROBIOME_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域微生物室",
+      "name": "广州金域微生物室",
+      "api_key_env": "DEPARTMENT_GZJY_MICROBIOLOGY_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    },
+    {
+      "id": "广州金域感染中心",
+      "name": "广州金域感染中心",
+      "api_key_env": "DEPARTMENT_GZJY_INFECTION_API_KEY",
+      "rules": {
+        "uncontrol_threshold_minutes": 30,
+        "allow_time_merge": true,
+        "merge_gap_hours": 2,
+        "importance_order": ["temperature", "humidity"]
+      }
+    }
+  ]
+}
